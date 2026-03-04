@@ -9,7 +9,7 @@ import {
   serializerCompiler,
   validatorCompiler,
 } from 'fastify-type-provider-zod'
-import { env } from '../env'
+import { env } from '../../env'
 import { uploadImageRoute } from './routes/upload-image'
 
 const server = fastify()

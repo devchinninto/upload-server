@@ -26,6 +26,7 @@
     "fastify": "^5.7.4",
     "fastify-type-provider-zod": "^6.1.0",
     "postgres": "^3.4.8",
+    "uuidv7": "^1.1.0",
     "zod": "^4.3.6"
   },
   "devDependencies": {
