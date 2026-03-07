@@ -30,10 +30,21 @@ export const uploadImageRoute: FastifyPluginAsyncZod = async server => {
       }
 
       const result = await uploadImage({
+        // This is where the stream is consumed
         fileName: uploadedFile.filename,
         contentType: uploadedFile.mimetype,
         contentStream: uploadedFile.file,
       })
+
+      // Since we're using streams, the file size is unknown upfront — it's processed chunk by chunk.
+      // This means size validation can only happen AFTER the stream is fully consumed.
+      // Fastify enforces the 2mb limit by aborting the stream if it's exceeded, and R2 automatically removes incomplete uploads from the bucket after a set number of days.
+      // This check exists to improve the user experience by surfacing a friendly error when the upload was truncated (i.e., aborted due to exceeding the size limit).
+      if (uploadedFile.file.truncated) {
+        return reply.status(400).send({
+          message: 'File size limit reached.',
+        })
+      }
 
       if (isRight(result)) {
         console.log(unwrapEither(result))
