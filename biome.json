@@ -19,7 +19,8 @@
     "rules": {
       "recommended": true,
       "correctness": {
-        "noUnusedFunctionParameters": "off"
+        "noUnusedFunctionParameters": "off",
+        "noUnusedVariables": "off"
       }
     }
   },
