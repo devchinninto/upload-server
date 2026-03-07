@@ -9,6 +9,7 @@ import {
   validatorCompiler,
 } from 'fastify-type-provider-zod'
 import { env } from '../../env'
+import { exportUploadsRoute } from './routes/export-uploads'
 import { getUploadsRoute } from './routes/get-uploads'
 import { transformSwaggerSchema } from './routes/transform-swagger-schema'
 import { uploadImageRoute } from './routes/upload-image'
@@ -50,6 +51,7 @@ server.register(fastifySwaggerUi, {
 
 server.register(uploadImageRoute)
 server.register(getUploadsRoute)
+server.register(exportUploadsRoute)
 
 server
   .listen({
