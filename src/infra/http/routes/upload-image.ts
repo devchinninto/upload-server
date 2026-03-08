@@ -3,6 +3,8 @@ import z from 'zod'
 import { uploadImage } from '@/app/use-cases/upload-image'
 import { isRight, unwrapEither } from '@/shared/either'
 
+const MAXIMUM_FILE_SIZE_IN_BYTES = 1024 * 1024 * 4 // 4mb
+
 export const uploadImageRoute: FastifyPluginAsyncZod = async server => {
   server.post(
     '/uploads',
@@ -22,7 +24,7 @@ export const uploadImageRoute: FastifyPluginAsyncZod = async server => {
     async (request, reply) => {
       const uploadedFile = await request.file({
         limits: {
-          fileSize: 1024 * 1024 * 2, // 2mb
+          fileSize: MAXIMUM_FILE_SIZE_IN_BYTES,
         },
       })
 
