@@ -4,4 +4,4 @@ import { env } from '@/env'
 import { schema } from './schemas'
 
 export const pg = postgres(env.DATABASE_URL)
-export const db = drizzle(pg, { schema })
+export const db = drizzle({ client: pg })
